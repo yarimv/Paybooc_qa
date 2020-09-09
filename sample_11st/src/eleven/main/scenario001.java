@@ -42,8 +42,8 @@ public class scenario001 {
 
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.0");
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy S8");
+		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9.0");
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Note8");
 
 		dc.setCapability("appPackage", "kvp.jjy.MispAndroid320");
 		dc.setCapability("appActivity", "kvp.jjy.MispAndroid320.newui.icon.WinterIcon");
@@ -102,8 +102,11 @@ public class scenario001 {
 		((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.APP_SWITCH));
 		Thread.sleep(2000);
 
-		String elementID = "com.android.systemui:id/recents_close_all_button";
-		xPathClick(elementID);
+		String clearapp8 = "com.android.systemui:id/recents_close_all_button"; //안드8
+		xPathClick(clearapp8);
+		
+		String clearapp9 = "com.sec.android.app.launcher:id/clear_all_button"; //안드9
+		xPathClick(clearapp9);
 
 	}
 
@@ -146,17 +149,19 @@ public class scenario001 {
 		SafeKeyboard cardnumber = new SafeKeyboard();
 		cardnumber.cardnumClick(UserInfo.getCardnum(),driver);
 		
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 				
 	}
 	
 	@Test // 카드 유효기간, CVC번호 7자리 입력
 	public void TC005() throws InterruptedException {
 
-		//xpath에서 "유효기간" text 찾기
-		//1. xpath 가져오기 (유튜브 에피움 기초 강의에 있음) 2. 가져온 xpath에서 text 값 찾기 << appium 명령어 찾아서 써야함
-		driver.findElements(By.xpath("유효기간")); //3. 가져온 xpath에서 원하는 txt 확인하기
+		String elementID = "kvp.jjy.MispAndroid320:id/tv_cardexp_label"; //유효기간 타이틀
+		findElement(elementID);
+		//driver.findElements(By.xpath("유효기간")); //유효기간 찾았다는거 로그표시해야 됨, 안드로이드 9.0인지 페이북버전 7.1.1버전인지 모르지만 타이틀에 elementID 확인 가능해서 일단 주석처리
 
+		driver.findElements(By.xpath("유효기간")); //유효기간 찾았다는거 로그표시해야 됨
+		
 		// 연결된 디바이스에 맞는 카드정보 불러오기
 		int ApplyIndex = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -170,7 +175,42 @@ public class scenario001 {
 		//SafeKeyboard 모듈에 카드정보 7자리 넘겨주고 보안키패드 클릭 실행
 		SafeKeyboard cardmmyycvc = new SafeKeyboard();
 		cardmmyycvc.cardinfoClick(UserInfo.getCardinfo(),driver);
+		
+		Thread.sleep(3000);
 				
 	}
+	
+	@Test // 카드 비밀번호 4자리 입력
+	public void TC006() throws InterruptedException {
+
+		String elementID = "kvp.jjy.MispAndroid320:id/tv_cardpwd_label"; //카드 비밀번호 타이틀
+		findElement(elementID);
+		//driver.findElements(By.xpath("유효기간")); //유효기간 찾았다는거 로그표시해야 됨, 안드로이드 9.0인지 페이북버전 7.1.1버전인지 모르지만 타이틀에 elementID 확인 가능해서 일단 주석처리
+		
+		// 연결된 디바이스에 맞는 카드정보 불러오기
+		int ApplyIndex = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if ("GS8".equals(list.get(i).getDevice())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		System.out.println(UserInfo.getCardpw());
+
+		//SafeKeyboard 모듈에 카드정보 7자리 넘겨주고 보안키패드 클릭 실행
+		SafeKeyboard cardmmyycvc = new SafeKeyboard();
+		cardmmyycvc.cardpwClick(UserInfo.getCardpw(),driver);
+				
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test // 약관 동의
+	public void TC007 () throws InterruptedException {
+		
+		
+		
+	}
+	
 
 }

@@ -1,5 +1,7 @@
 package eleven.main;
 
+import org.openqa.selenium.By;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -18,39 +20,48 @@ public class SafeKeyboard {
 			
 			switch (tmp) {
 			case "0":
-				System.out.println("스위치" + tmp);
-				//driver.findElementById("//android.widget.ImageView[@content-desc='0']").click();
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "1":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "2":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "3":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "4":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "5":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "6":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "7":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "8":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "9":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 				
 			default: //위 케이스에 없는 상황이면 디폴트로 넘어옴
-				System.out.println("카드번호 못읽음");
+				System.out.println("카드번호 입력 실패");
 				break;
 			}
 			
@@ -72,39 +83,49 @@ public class SafeKeyboard {
 			
 			switch (tmp) {
 			case "0":
-				System.out.println("스위치" + tmp);
-				//driver.findElementById("//android.widget.ImageView[@content-desc='0']").click();
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "1":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "2":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "3":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "4":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "5":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "6":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "7":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "8":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
 			case "9":
-				System.out.println("스위치" + tmp);
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
+				System.out.println("카드번호" + tmp + "입력");
 				break;
+			
 				
 			default: //위 케이스에 없는 상황이면 디폴트로 넘어옴
-				System.out.println("카드정보 못읽음");
+				System.out.println("카드정보 입력 실패");
 				break;
 			}
 			
@@ -113,5 +134,71 @@ public class SafeKeyboard {
 		return cardinfo;
 		
 	}
+	
+	//카드비밀번호 4자리 받기
+	public String cardpwClick(String cardpw, AndroidDriver<MobileElement> driver) {
+		
+		//카드번호 쪼개기
+		String tmp="";
+		for(int i=0; i<4; i++) {
+			tmp = cardpw.substring(i,i+1);
+			System.out.println("카드비밀번호: "+tmp);
+			
+			switch (tmp) {
+			case "0":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "1":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "2":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "3":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "4":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "5":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "6":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "7":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "8":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			case "9":
+				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
+				System.out.println("카드번호" + tmp + "입력");
+				break;
+			
+				
+			default: //위 케이스에 없는 상황이면 디폴트로 넘어옴
+				System.out.println("카드정보 입력 실패");
+				break;
+			}
+			
+		}
+				
+		return cardpw;
+		
+	}
+	
+	
+	
 	
 }
