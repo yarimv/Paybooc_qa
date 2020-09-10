@@ -7,6 +7,8 @@ public class userInfo {
 	private String Cardnum;
 	private String Cardinfo;
 	private String Cardpw;
+	private String Certdate;
+	private String Certpw;
 	
 	public String getDevice() {
 		return Device;
@@ -37,6 +39,18 @@ public class userInfo {
 	}
 	public void setCardpw(String cardpw) {
 		Cardpw = cardpw;
+	}
+	public String getCertdate() {
+		return Certdate;
+	}
+	public void setCertdate(String Certdate) {
+		this.Certdate = Certdate;
+	}
+	public String getCertpw() {
+		return Certpw;
+	}
+	public void setCertpw(String Certpw) {
+		this.Certpw = Certpw;
 	}
 	
 

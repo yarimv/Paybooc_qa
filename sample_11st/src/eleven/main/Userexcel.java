@@ -36,7 +36,7 @@ public class Userexcel {
 					XSSFCell testCell = row.getCell(0);
 					String testValue = testCell.getStringCellValue() + "";
 					userInfo Device = new userInfo();
-					for (int columIndex = 0; columIndex < 5; columIndex++) {
+					for (int columIndex = 0; columIndex < 7; columIndex++) {
 
 						XSSFCell cell = row.getCell(columIndex); // 셀 값을 읽어오기
 						String Value = "";
@@ -66,6 +66,10 @@ public class Userexcel {
 							Device.setCardinfo(Value);
 						} else if (columIndex == 4) {
 							Device.setCardpw(Value);
+						} else if (columIndex == 5) {
+							Device.setCertdate(Value);
+						} else if (columIndex == 6) {
+							Device.setCertpw(Value);
 						}
 					}
 					list.add(Device);
@@ -89,6 +93,8 @@ public class Userexcel {
 				System.out.println(index.getCardnum());
 				System.out.println(index.getCardinfo());
 				System.out.println(index.getCardpw());
+				System.out.println(index.getCertdate());
+				System.out.println(index.getCertpw());
 			}
 			System.out.println(list.get(0).getName()); // list에서 0번째 그룹에서 원하는 항목값만 출력
 
