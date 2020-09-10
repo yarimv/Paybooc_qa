@@ -67,7 +67,7 @@ public class excel2 {
 					XSSFCell testCell = row.getCell(0);
 					String testValue= testCell.getStringCellValue()+"";
 					if("GS8".equals(testValue)) {
-						for (int columnIndex = 0; columnIndex < 5; columnIndex++) {
+						for (int columnIndex = 0; columnIndex < 7; columnIndex++) {
 							XSSFCell cell = row.getCell(columnIndex); // 셀 값을 읽어오기
 							String CardNum = "";
 							switch (cell.getCellType()) {

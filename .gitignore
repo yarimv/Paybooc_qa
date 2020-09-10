@@ -1,2 +1,6 @@
 .metadata/
+<<<<<<< HEAD
 test-output/
+=======
+sample_11st/test-output/
+>>>>>>> 228e099766c772240f209b4c65c6fa116df7926d

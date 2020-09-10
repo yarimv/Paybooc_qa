@@ -42,8 +42,8 @@ public class scenario001 {
 
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.0");
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy S8");
+		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9.0");
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Note8");
 
 		dc.setCapability("appPackage", "kvp.jjy.MispAndroid320");
 		dc.setCapability("appActivity", "kvp.jjy.MispAndroid320.newui.icon.WinterIcon");
@@ -102,8 +102,11 @@ public class scenario001 {
 		((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.APP_SWITCH));
 		Thread.sleep(2000);
 
-		String elementID = "com.android.systemui:id/recents_close_all_button";
-		xPathClick(elementID);
+		String clearapp8 = "com.android.systemui:id/recents_close_all_button"; //안드8
+		xPathClick(clearapp8);
+		
+		String clearapp9 = "com.sec.android.app.launcher:id/clear_all_button"; //안드9
+		xPathClick(clearapp9);
 
 	}
 
@@ -115,6 +118,8 @@ public class scenario001 {
 		findElement(elementID);
 
 		System.out.println("페이북 app 실행");
+		
+		Thread.sleep(3000);
 
 	}
 
@@ -124,6 +129,8 @@ public class scenario001 {
 		String elementID = "kvp.jjy.MispAndroid320:id/iv_card_add";
 		xPathClick(elementID);
 
+		Thread.sleep(3000);
+		
 	}
 
 	@Test // 카드정보 입력 화면 진입 확인 및 카드 번호 16자리 입력
@@ -140,23 +147,23 @@ public class scenario001 {
 			}
 		}
 		userInfo UserInfo = list.get(ApplyIndex);
-		System.out.println(UserInfo.getCardnum());
+		System.out.println("카드번호: " + UserInfo.getCardnum());
 
 		//SafeKeyboard 모듈에 카드번호16자리 넘겨주고 보안키패드 클릭 실행
 		SafeKeyboard cardnumber = new SafeKeyboard();
 		cardnumber.cardnumClick(UserInfo.getCardnum(),driver);
 		
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 				
 	}
 	
 	@Test // 카드 유효기간, CVC번호 7자리 입력
 	public void TC005() throws InterruptedException {
 
-		//xpath에서 "유효기간" text 찾기
-		//1. xpath 가져오기 (유튜브 에피움 기초 강의에 있음) 2. 가져온 xpath에서 text 값 찾기 << appium 명령어 찾아서 써야함
-		driver.findElements(By.xpath("유효기간")); //3. 가져온 xpath에서 원하는 txt 확인하기
-
+		String elementID = "kvp.jjy.MispAndroid320:id/tv_cardexp_label"; //유효기간 타이틀
+		findElement(elementID);
+		//driver.findElements(By.xpath("유효기간")); //유효기간 찾았다는거 로그표시해야 됨, 안드로이드 9.0인지 페이북버전 7.1.1버전인지 모르지만 타이틀에 elementID 확인 가능해서 일단 주석처리
+	
 		// 연결된 디바이스에 맞는 카드정보 불러오기
 		int ApplyIndex = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -165,12 +172,88 @@ public class scenario001 {
 			}
 		}
 		userInfo UserInfo = list.get(ApplyIndex);
-		System.out.println(UserInfo.getCardinfo());
+		System.out.println("카드정보(mmyycvc): " + UserInfo.getCardinfo());
 
 		//SafeKeyboard 모듈에 카드정보 7자리 넘겨주고 보안키패드 클릭 실행
 		SafeKeyboard cardmmyycvc = new SafeKeyboard();
 		cardmmyycvc.cardinfoClick(UserInfo.getCardinfo(),driver);
+		
+		Thread.sleep(3000);
 				
+	}
+	
+	@Test // 카드 비밀번호 4자리 입력
+	public void TC006() throws InterruptedException {
+
+		String elementID = "kvp.jjy.MispAndroid320:id/tv_cardpwd_label"; //카드 비밀번호 타이틀
+		findElement(elementID);
+		//driver.findElements(By.xpath("유효기간")); //유효기간 찾았다는거 로그표시해야 됨, 안드로이드 9.0인지 페이북버전 7.1.1버전인지 모르지만 타이틀에 elementID 확인 가능해서 일단 주석처리
+		
+		// 연결된 디바이스에 맞는 카드정보 불러오기
+		int ApplyIndex = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if ("GS8".equals(list.get(i).getDevice())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		System.out.println("카드비번: " + UserInfo.getCardpw());
+
+		//SafeKeyboard 모듈에 카드정보 7자리 넘겨주고 보안키패드 클릭 실행
+		SafeKeyboard cardmmyycvc = new SafeKeyboard();
+		cardmmyycvc.cardpwClick(UserInfo.getCardpw(),driver);
+				
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test // 약관 동의
+	public void TC007 () throws InterruptedException {
+		
+		String agreementTitle = "kvp.jjy.MispAndroid320:id/tv_title"; //ISP 약관 동의 화면 타이틀
+		findElement(agreementTitle);
+		
+		String agreementButton = "kvp.jjy.MispAndroid320:id/cb_terms1_all"; //약관 동의 전체선택 버튼
+		xPathClick(agreementButton);
+		
+		String agreemetNext = "kvp.jjy.MispAndroid320:id/btn_ok"; //약관 동의 다음 버튼
+		xPathClick(agreemetNext);		
+		
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test // ISP 본인인증: 카드 명의 공인인증 선택 (공인인증 목록에서 만료일로 구분)
+	public void TC008 () throws InterruptedException {
+		
+		String certTitle = "kvp.jjy.MispAndroid320:id/tv_title"; //본인인증 화면 타이틀
+		findElement(certTitle);
+		
+		String certButton = "kvp.jjy.MispAndroid320:id/tv_pubcert"; //공인인증서 탭
+		xPathClick(certButton);	
+		
+		Thread.sleep(3000);
+		
+		//공인인증서 인증 화면에서 공인인증서 선택
+		String certTitle2 = "kvp.jjy.MispAndroid320:id/tv_title"; //공인인증서 인증 화면 타이틀
+		findElement(certTitle2);
+		
+		//공인인증서 만료일 가져오기
+		int ApplyIndex = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if ("GS8".equals(list.get(i).getCertdate())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		System.out.println(UserInfo.getCertdate());
+		
+		//불러온 만료일과 일치하는 화면 내 만료일 txt 찾기 못찾으면 스크롤 동작으로 찾기
+		//리소스 id 이용: 1. 만료일 리소스id 찾아서 리스트로 만듦 2. 그 중에 getCertdate 값이랑 일치하는 애 찾음 3. 그거 클릭
+		//xpath 이용
+		driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, 'UserInfo.getCertdate()')]")).click();
+		//driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")).click();//동작 확인용, 정상 동작 확인
+		
 	}
 
 }
