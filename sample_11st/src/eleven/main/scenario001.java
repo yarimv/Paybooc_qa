@@ -251,8 +251,24 @@ public class scenario001 {
 		//불러온 만료일과 일치하는 화면 내 만료일 txt 찾기 못찾으면 스크롤 동작으로 찾기
 		//리소스 id 이용: 1. 만료일 리소스id 찾아서 리스트로 만듦 2. 그 중에 getCertdate 값이랑 일치하는 애 찾음 3. 그거 클릭
 		//xpath 이용
-		driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, 'UserInfo.getCertdate()')]")).click();
 		//driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")).click();//동작 확인용, 정상 동작 확인
+		//System.out.println(driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")));
+		
+		MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
+		System.out.println(Certdate);
+		
+		Scrolling scrolling = new Scrolling();
+		
+		//출력값이 뭔지 알아내서 null 대체
+		while(Certdate == null) {
+			scrolling.scrollDown();
+			Certdate=driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, 'UserInfo.getCertdate()')]"));
+		}
+		
+		if(Certdate!=null) {
+			Certdate.click();
+		}
+				
 		
 	}
 
