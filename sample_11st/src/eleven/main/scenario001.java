@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.annotations.BeforeTest;
@@ -226,7 +227,6 @@ public class scenario001 {
 		
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
 	@Test // ISP 본인인증: 카드 명의 공인인증 선택 (공인인증 목록에서 만료일로 구분)
 	public void TC008 () throws InterruptedException {
 		
@@ -252,32 +252,51 @@ public class scenario001 {
 		userInfo UserInfo = list.get(ApplyIndex);
 		System.out.println(UserInfo.getCertdate());
 		
-		//불러온 만료일과 일치하는 화면 내 만료일 txt 찾기 못찾으면 스크롤 동작으로 찾기
-		//리소스 id 이용: 1. 만료일 리소스id 찾아서 리스트로 만듦 2. 그 중에 getCertdate 값이랑 일치하는 애 찾음 3. 그거 클릭
+		//불러온 만료일과 일치하는 화면 내 만료일 text 찾기 못찾으면 스크롤 동작으로 찾기
+		//xpath 이용 이용: 1. xpath에서 만료일 text 찾기  2. 그 중에 getCertdate 값이랑 일치하는지 비교 3. 일치하면 해당 element 클릭	
+		//driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")).click();//현재 화면에서 바로 element 찾는 코드
 		
-		//xpath 이용
-		//driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")).click();//동작 확인용, 정상 동작 확인
-		//System.out.println(driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.13.15')]"))); //while 돌릴때 비교값 찾으려고 return 값 확인용
+		//MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
+		//scrolling으로 driver 정보 넘겨주기
+		scrolling.setDriver(driver);
 		
-//		MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
-//		MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@text]"));
-//		System.out.println(Certdate);
+		//화면 스크롤하여 만료일 찾기
+		MobileElement Certdate = null; //for문 밖에서도 Certdate 변수를 사용하기 위한 초기화
 		
-		List<MobileElement> CertdateAttribute = (List<MobileElement>) driver.findElementsByXPath("//android.widget.TextView");
-		String tagName = ((RemoteWebElement) CertdateAttribute).getAttribute("content-desc");
-		System.out.println(tagName);
-		
+		//5번동안 element 찾아서 스크롤
+		for (int i=0; i<5; i++) {
+			try {
+				Certdate = driver.findElement(By.xpath("//android.widget.TextView[@text='"+UserInfo.getCertdate()+"']"));
+				System.out.println("인증서 만료일 찾음");
 				
-		//출력값이 뭔지 알아내서 null 대체
-//		while(!Certdate.equals(UserInfo.getCertdate())) {
-//			scrolling.scrollDown();
-//			Certdate=driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
-//		}
-		
-//		if(Certdate.equals(UserInfo.getCertdate())) {
-//			Certdate.click();
-//		}
+				//Certdate 값을 문자열로 변환 후 원하는 문자열이 포함되어 있는지 확인
+				String textCertdate = Certdate.toString();
+				//System.out.println(a.contains("2021.07.24")); //문자열로 잘 변환 됐는지 확인하기 위한 sysout
 				
+				//만료일 일치하는거 찾았으면 for문 나가기
+				if (textCertdate.contains(UserInfo.getCertdate())) {
+					break;
+				}
+			//try=만료일element 못찾으면 스크롤하고 5번 돌려도 못찾으면 인증서 만료일 못찾고 exception 엔딩	
+			} catch (NoSuchElementException e) {
+				scrolling.scrollDown();
+				
+				if (i==4) {
+					System.out.println("인증서 만료일 못찾음");
+				}
+			}
+		}
+		
+		Certdate.click();		
+		System.out.println("인증서 만료일 클릭");
+				
+	}
+	
+	@Test // ISP 본인인증: 공인인증서 비밀번호 입력
+	public void TC009 () {
+	
+		//비밀번호 입력 화면 전환 확인, 보안키패드로 UserInfo.getCertpw 클릭
+		
 	}
 
 }
