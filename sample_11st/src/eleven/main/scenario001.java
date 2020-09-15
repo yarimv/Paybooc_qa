@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import io.appium.java_client.MobileElement;
@@ -29,6 +30,8 @@ public class scenario001 {
 	public static String time2 = format2.format(time);
 
 	public static ArrayList<userInfo> list = new ArrayList<userInfo>(); // userInfo 값을 리스트로 사용하기위해 선언
+	public static Scrolling scrolling = new Scrolling();
+	
 
 	@BeforeTest
 	public void setupAppium() throws MalformedURLException {
@@ -223,6 +226,7 @@ public class scenario001 {
 		
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@Test // ISP 본인인증: 카드 명의 공인인증 선택 (공인인증 목록에서 만료일로 구분)
 	public void TC008 () throws InterruptedException {
 		
@@ -250,26 +254,30 @@ public class scenario001 {
 		
 		//불러온 만료일과 일치하는 화면 내 만료일 txt 찾기 못찾으면 스크롤 동작으로 찾기
 		//리소스 id 이용: 1. 만료일 리소스id 찾아서 리스트로 만듦 2. 그 중에 getCertdate 값이랑 일치하는 애 찾음 3. 그거 클릭
+		
 		//xpath 이용
 		//driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")).click();//동작 확인용, 정상 동작 확인
-		//System.out.println(driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.10.15')]")));
+		//System.out.println(driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, '2020.13.15')]"))); //while 돌릴때 비교값 찾으려고 return 값 확인용
 		
-		MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
-		System.out.println(Certdate);
+//		MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
+//		MobileElement Certdate = driver.findElement(By.xpath("//android.widget.TextView[@text]"));
+//		System.out.println(Certdate);
 		
-		Scrolling scrolling = new Scrolling();
+		List<MobileElement> CertdateAttribute = (List<MobileElement>) driver.findElementsByXPath("//android.widget.TextView");
+		String tagName = ((RemoteWebElement) CertdateAttribute).getAttribute("content-desc");
+		System.out.println(tagName);
 		
-		//출력값이 뭔지 알아내서 null 대체
-		while(Certdate == null) {
-			scrolling.scrollDown();
-			Certdate=driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, 'UserInfo.getCertdate()')]"));
-		}
-		
-		if(Certdate!=null) {
-			Certdate.click();
-		}
 				
+		//출력값이 뭔지 알아내서 null 대체
+//		while(!Certdate.equals(UserInfo.getCertdate())) {
+//			scrolling.scrollDown();
+//			Certdate=driver.findElement(By.xpath("//android.widget.TextView[@resource-id='kvp.jjy.MispAndroid320:id/tv_pubcert_expireday' and contains(@text, "+UserInfo.getCertdate()+")]"));
+//		}
 		
+//		if(Certdate.equals(UserInfo.getCertdate())) {
+//			Certdate.click();
+//		}
+				
 	}
 
 }
