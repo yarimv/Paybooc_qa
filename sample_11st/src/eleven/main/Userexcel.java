@@ -36,7 +36,7 @@ public class Userexcel {
 					XSSFCell testCell = row.getCell(0);
 					String testValue = testCell.getStringCellValue() + "";
 					userInfo Device = new userInfo();
-					for (int columIndex = 0; columIndex < 7; columIndex++) {
+					for (int columIndex = 0; columIndex < 8; columIndex++) {
 
 						XSSFCell cell = row.getCell(columIndex); // 셀 값을 읽어오기
 						String Value = "";
@@ -70,6 +70,8 @@ public class Userexcel {
 							Device.setCertdate(Value);
 						} else if (columIndex == 6) {
 							Device.setCertpw(Value);
+						} else if (columIndex == 6) {
+							Device.setPbpw(Value);
 						}
 					}
 					list.add(Device);
@@ -77,6 +79,8 @@ public class Userexcel {
 //					}
 				}
 			}
+			
+			//현재 연결 기기의 정보 출력
 			int ApplyIndex = 0;
 			for (int i = 0; i < list.size(); i++) {
 				if ("GS8".equals(list.get(i).getDevice())) {
@@ -84,19 +88,27 @@ public class Userexcel {
 				}
 			}
 			userInfo UserInfo = list.get(ApplyIndex);
+			System.out.println("연결 기기: " + UserInfo.getDevice());
+			System.out.println(UserInfo.getName());
 			System.out.println(UserInfo.getCardnum());
+			System.out.println(UserInfo.getCardinfo());
+			System.out.println(UserInfo.getCardpw());
+			System.out.println(UserInfo.getCertdate());
+			System.out.println(UserInfo.getCertpw());
+			System.out.println(UserInfo.getPbpw());
 
-			// 리스트 출력
-			for (userInfo index : list) {
-				System.out.println(index.getDevice());
-				System.out.println(index.getName());
-				System.out.println(index.getCardnum());
-				System.out.println(index.getCardinfo());
-				System.out.println(index.getCardpw());
-				System.out.println(index.getCertdate());
-				System.out.println(index.getCertpw());
-			}
-			System.out.println(list.get(0).getName()); // list에서 0번째 그룹에서 원하는 항목값만 출력
+			// 기기 구분 없이 모든 리스트 출력
+//			for (userInfo index : list) {
+//				System.out.println(index.getDevice());
+//				System.out.println(index.getName());
+//				System.out.println(index.getCardnum());
+//				System.out.println(index.getCardinfo());
+//				System.out.println(index.getCardpw());
+//				System.out.println(index.getCertdate());
+//				System.out.println(index.getCertpw());
+//				System.out.println(index.getPbpw());
+//			}
+			//System.out.println(list.get(0).getName()); // list에서 0번째 그룹에서 원하는 항목값만 출력
 
 		} catch (IOException e) {
 			e.printStackTrace();

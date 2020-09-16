@@ -282,21 +282,81 @@ public class scenario001 {
 				scrolling.scrollDown();
 				
 				if (i==4) {
-					System.out.println("인증서 만료일 못찾음");
+					System.out.println("인증서 만료일 " + UserInfo.getCertdate() + " 못찾음");
 				}
 			}
 		}
 		
 		Certdate.click();		
-		System.out.println("인증서 만료일 클릭");
+		System.out.println("인증서 만료일 " + UserInfo.getCertdate() + " 클릭");
+		
+		Thread.sleep(3000);
 				
 	}
 	
 	@Test // ISP 본인인증: 공인인증서 비밀번호 입력
-	public void TC009 () {
+	public void TC009 () throws InterruptedException {
 	
 		//비밀번호 입력 화면 전환 확인, 보안키패드로 UserInfo.getCertpw 클릭
+		String certpwTitle = "kvp.jjy.MispAndroid320:id/tv_password_label"; //공인인증서 비밀번호 입력
+		findElement(certpwTitle);
+		
+		Thread.sleep(1000);
+		
+		// 연결된 디바이스에 맞는 인증서 비번 불러오기
+		int ApplyIndex = 0;
+		for (int i = 0; i < list.size(); i++) {
+				if ("GS8".equals(list.get(i).getDevice())) {
+					ApplyIndex = i;
+				}
+			}
+		userInfo UserInfo = list.get(ApplyIndex);
+		System.out.println("공증 비번: " + UserInfo.getCertpw());
+
+		//SafeKeyboard 모듈에 카드정보 7자리 넘겨주고 보안키패드 클릭 실행
+		SafeKeyboard certpw = new SafeKeyboard();
+		certpw.certpwClick(UserInfo.getCertpw(),driver);
+		
+		//입력완료 버튼 선택
+		//driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='입력완료']")).click(); //정상 동작 확인
+
+		String certOk = "//android.widget.ImageView[@content-desc='입력완료']";
+
+		try {
+			driver.findElementByXPath(certOk).click();
+			System.out.println("공증비번 입력 완료");
+
+		} catch (Exception e) {
+			System.out.println("공증비번 입력완료 버튼 못찾음");
+		}
+
+		Thread.sleep(3000);
 		
 	}
+	
+	@Test // ISP 결제비밀번호 입력
+	public void TC010 () throws InterruptedException {
+		
+		String isppwTitle = "kvp.jjy.MispAndroid320:id/tv_isp_pwd_label";
+		findElement(isppwTitle);
+		
+		//연결된 디바이스에 맞는 결제비밀번호 불러오기
+		int ApplyIndex = 0;
+		for (int i=0; i<list.size(); i++) {
+			if ("GS8".equals(list.get(i).getDevice())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		System.out.println("결제비밀번호: " + UserInfo.getPbpw());
+		
+		//SafeKeyboard 모듈에 결제비밀번호 넘겨주고 보안키패드 클릭 실행
+		SafeKeyboard pbpw = new SafeKeyboard();
+		pbpw.pbpwClick(UserInfo.getPbpw(),driver);
+		
+		Thread.sleep(5000);
+		
+	}
+	
 
 }

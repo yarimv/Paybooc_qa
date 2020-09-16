@@ -9,6 +9,8 @@ public class userInfo {
 	private String Cardpw;
 	private String Certdate;
 	private String Certpw;
+	private String Pbpw;
+
 	
 	public String getDevice() {
 		return Device;
@@ -51,6 +53,13 @@ public class userInfo {
 	}
 	public void setCertpw(String Certpw) {
 		this.Certpw = Certpw;
+	}
+	
+	public String getPbpw() {
+		return Pbpw;
+	}
+	public void setPbpw(String Pbpw) {
+		this.Pbpw = Pbpw;
 	}
 	
 
