@@ -242,7 +242,7 @@ public class scenario001 {
 		String certTitle2 = "kvp.jjy.MispAndroid320:id/tv_title"; //공인인증서 인증 화면 타이틀
 		findElement(certTitle2);
 		
-		//공인인증서 만료일 가져오기
+		//현재 디바이스에 맞는 공인인증서 만료일 가져오기
 		int ApplyIndex = 0;
 		for (int i = 0; i < list.size(); i++) {
 			if ("GS8".equals(list.get(i).getCertdate())) {
@@ -353,6 +353,58 @@ public class scenario001 {
 		//SafeKeyboard 모듈에 결제비밀번호 넘겨주고 보안키패드 클릭 실행
 		SafeKeyboard pbpw = new SafeKeyboard();
 		pbpw.pbpwClick(UserInfo.getPbpw(),driver);
+		
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test // 바이오 설정 팝업 닫기
+	public void TC011 () throws InterruptedException {
+		
+		//바이오 설정 팝업 타이틀 찾기
+		String biopopupTitle = "kvp.jjy.MispAndroid320:id/tv_popup_title";
+		findElement(biopopupTitle);
+		
+		//바이오 설정 팝업창 닫기
+		String biopopupClosed = "kvp.jjy.MispAndroid320:id/btn_right";
+		xPathClick(biopopupClosed);
+		
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test // 카드 등록 완료 확인
+	public void TC012 () throws InterruptedException {
+		
+		//페이북 화면 전환 확인
+		String pblogo = "kvp.jjy.MispAndroid320:id/iv_title_logo";
+		findElement(pblogo);
+		
+		//1.카드 번호 갖고 오기 2. 카드 번호 뒷 4자리만 변수에 입력
+		//현재 디바이스에 맞는 카드 번호 가져오기
+		int ApplyIndex = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if ("GS8".equals(list.get(i).getCardnum())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		
+		//카드 번호 뒷 4자리 자르기
+		String endCardnum = UserInfo.getCardnum().substring(UserInfo.getCardnum().length()-4, UserInfo.getCardnum().length());
+		//System.out.println(endCardnum); //확인용
+		
+		//페이북 화면에서 카드번호 끝 4자리 일치 확인
+		try {
+			
+			driver.findElement(By.xpath("//android.widget.TextView[@text='" + endCardnum + "']"));
+			//driver.findElement(By.xpath("//android.widget.TextView[@text='1111']")); //카드등록 실패 확인용
+			System.out.println("카드등록 완료");
+			
+		} catch (Exception e) {
+			System.out.println("카드등록 실패");
+			//모든 테스트 끝내기 실행문 작성
+		}
 		
 		Thread.sleep(5000);
 		

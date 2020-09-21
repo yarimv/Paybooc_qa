@@ -70,7 +70,7 @@ public class Userexcel {
 							Device.setCertdate(Value);
 						} else if (columIndex == 6) {
 							Device.setCertpw(Value);
-						} else if (columIndex == 6) {
+						} else if (columIndex == 7) {
 							Device.setPbpw(Value);
 						}
 					}
