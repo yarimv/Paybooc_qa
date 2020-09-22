@@ -282,7 +282,8 @@ public class scenario001 {
 				scrolling.scrollDown();
 				
 				if (i==4) {
-					System.out.println("인증서 만료일 " + UserInfo.getCertdate() + " 못찾음");
+					//System.out.println("인증서 만료일 " + UserInfo.getCertdate() + " 못찾음");
+					throw new NoSuchElementException("인증서 만료일 " + UserInfo.getCertdate() + " 못찾음");
 				}
 			}
 		}

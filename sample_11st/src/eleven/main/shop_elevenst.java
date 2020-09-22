@@ -123,31 +123,53 @@ public class shop_elevenst {
 		
 		Thread.sleep(3000);
 		
-		//if 마이페이지 [회원정보] 버튼 찾기 else if 로그인 프로세스 시작
-			if (driver.findElement(By.xpath("//android.view.View[@text='나의 11번가']")) != null) {
-				System.out.println("로그인 확인");
-				
-			} else {
-				
-				//appium send text로 쇼핑몰 id 입력
-				MobileElement inputID = (MobileElement) driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userId']"));
-				inputID.click();
-				inputID.sendKeys("inmanaged"); //userinfo 엑셀 값 넣어야 함
-				
-				Thread.sleep(1000);
-				
-				//appium send text로 쇼핑몰 pw 입력
-				MobileElement inputPW = (MobileElement) driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userPw']"));
-				inputPW.click();
-				inputPW.sendKeys("qmdlvl1!"); //userinfo 엑셀 값 넣어야 함
-				
-				Thread.sleep(1000);
-				
-				//로그인 버튼 클릭
-				driver.findElement(By.xpath("//android.widget.Button[@text='로그인']")).click();
-			}
+		// 마이페이지 [회원정보] 버튼 찾기 else if 로그인 프로세스 시작
+		try {
+			driver.findElement(By.xpath("//android.view.View[@text='나의 11번가']"));
+			
+		} catch (Exception e) {
+
+			//appium send text로 쇼핑몰 id 입력
+			MobileElement inputID = (MobileElement) driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userId']"));
+			inputID.click();
+			inputID.sendKeys("inmanaged"); //userinfo 엑셀 값 넣어야 함
+			
+			Thread.sleep(1000);
+			
+			//appium send text로 쇼핑몰 pw 입력
+			MobileElement inputPW = (MobileElement) driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userPw']"));
+			inputPW.click();
+			inputPW.sendKeys("qmdlvl1!"); //userinfo 엑셀 값 넣어야 함
+			
+			Thread.sleep(1000);
+			
+			//로그인 버튼 클릭
+			driver.findElement(By.xpath("//android.widget.Button[@text='로그인']")).click();
+			
+			Thread.sleep(5000);
+			
+		} finally {
+			driver.findElement(By.xpath("//android.view.View[@text='나의 11번가']"));
+			System.out.println("로그인 확인");
 			
 		}
+		
+		Thread.sleep(3000);
+			
+	}
+	
+	@Test //검색창 열고 검색어 입력하여 검색
+	public void TC016 () throws InterruptedException {
+		
+		//메인 화면으로 와서 검색어 버튼(resourceid 따야됨) 선택해야함 마이페이지에서 검색어 버튼 클릭해도 검색창 안열림
+		
+		String iconSearch = "com.elevenst:id/gnb_text_search";
+		xPathClick(iconSearch);
+		
+		Thread.sleep(1000);
+		
+		
+	}
 
 	
 	
