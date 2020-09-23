@@ -3,8 +3,10 @@ package eleven.main;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -56,6 +58,8 @@ public class shop_elevenst {
 	 * @AfterTest public void closeApp () throws InterruptedException {
 	 * driver.closeApp (); }
 	 */
+	
+	//resource-id 찾기
 	public void findElement(String elementID) throws InterruptedException {
 
 		String[] array = elementID.split("/"); // elementID 주소를 / 기준으로 잘라서 출력
@@ -72,6 +76,7 @@ public class shop_elevenst {
 
 	}
 
+	//resource-id 클릭 (xpath 안됨)
 	public void xPathClick(String elementID) throws InterruptedException {
 
 		String[] array = elementID.split("/"); // elementID 주소를 / 기준으로 잘라서 출력
@@ -86,6 +91,7 @@ public class shop_elevenst {
 
 		Thread.sleep(2000);
 	}
+	
 	
 	@Test
 	public void TC013 () throws InterruptedException {
@@ -130,14 +136,14 @@ public class shop_elevenst {
 		} catch (Exception e) {
 
 			//appium send text로 쇼핑몰 id 입력
-			MobileElement inputID = (MobileElement) driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userId']"));
+			MobileElement inputID = driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userId']"));
 			inputID.click();
 			inputID.sendKeys("inmanaged"); //userinfo 엑셀 값 넣어야 함
 			
 			Thread.sleep(1000);
 			
 			//appium send text로 쇼핑몰 pw 입력
-			MobileElement inputPW = (MobileElement) driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userPw']"));
+			MobileElement inputPW = driver.findElement(By.xpath("//android.widget.EditText[@resource-id='userPw']"));
 			inputPW.click();
 			inputPW.sendKeys("qmdlvl1!"); //userinfo 엑셀 값 넣어야 함
 			
@@ -161,17 +167,62 @@ public class shop_elevenst {
 	@Test //검색창 열고 검색어 입력하여 검색
 	public void TC016 () throws InterruptedException {
 		
-		//메인 화면으로 와서 검색어 버튼(resourceid 따야됨) 선택해야함 마이페이지에서 검색어 버튼 클릭해도 검색창 안열림
 		
-		String iconSearch = "com.elevenst:id/gnb_text_search";
+		//홈화면으로 이동
+		String iconHome = "com.elevenst:id/btn_home";
+		xPathClick(iconHome);
+		
+		Thread.sleep(3000);
+		
+		//홈화면 검색어 입력 픽드 선택
+		String iconSearch = "com.elevenst:id/gnb_adsearch";
 		xPathClick(iconSearch);
 		
 		Thread.sleep(1000);
 		
+		//검색 레이어창 검색어 입력 필드 선택 및 검색어 입력
+		MobileElement inputSearch = (MobileElement) driver.findElement(By.id("com.elevenst:id/search_input"));
+		Thread.sleep(1000);
+		inputSearch.click();
+		inputSearch.clear();
+		inputSearch.sendKeys("오리젠");
+		
+		Thread.sleep(1000);
+		
+		String iconSearchenter = "com.elevenst:id/icon_search";
+		xPathClick(iconSearchenter);
+		
+		Thread.sleep(3000);
 		
 	}
 
-	
-	
+	@Test //검색 결과 리스트에서 상품 선택
+	public void TC017 () throws InterruptedException, Exception {
+		
+		//검색 결과 리스트 화면 전환 확인
+		driver.findElement(By.xpath("//android.widget.TextView[@text='통합검색']"));
+		
+		//화면에 노출된 상품 타이틀 개수 산정 후 첫번째거 선택
+		try {
 
+			//List<MobileElement> product = driver.findElements(By.xpath("//android.view.ViewGroup/android.view.ViewGroup[2]")); //상품 타이틀 xpath
+			//List<MobileElement> product = driver.findElements(By.id("com.elevenst:id/recentViewImages")); //catch throw 확인용
+			List<MobileElement> product = driver.findElements(By.id("com.elevenst:id/title_container")); //상품 타이틀 resource-id
+			System.out.println(product.size());
+			product.get(0).click();
+			
+		} catch (Exception e) {
+			
+			throw new Exception("상품 선택 실패"); 
+		}
+		
+		Thread.sleep(5000);
+		
+	}
+
+	@Test //상품 상세 화면 옵션 선택
+	public void TC018 () {
+		
+	}
+	
 }
