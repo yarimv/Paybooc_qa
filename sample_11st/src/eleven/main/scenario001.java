@@ -47,7 +47,7 @@ public class scenario001 {
 		dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 		dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9.0");
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Note8");
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Note8"); 
 
 		dc.setCapability("appPackage", "kvp.jjy.MispAndroid320");
 		dc.setCapability("appActivity", "kvp.jjy.MispAndroid320.newui.icon.WinterIcon");

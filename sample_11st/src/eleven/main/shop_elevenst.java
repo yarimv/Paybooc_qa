@@ -2,20 +2,27 @@ package eleven.main;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class shop_elevenst {
 	
@@ -221,7 +228,90 @@ public class shop_elevenst {
 	}
 
 	@Test //상품 상세 화면 옵션 선택
-	public void TC018 () {
+	public void TC018 () throws InterruptedException {
+		
+		//옵션 확인 전 [구매하기] 버튼 선택
+		String payment = "com.elevenst:id/btnRight";
+		xPathClick(payment);
+		
+		Thread.sleep(3000);
+		
+		
+		//바로구매 버튼 찾기
+		String paymentnow = "com.elevenst:id/btnRight";
+		findElement(paymentnow);
+		List<MobileElement> aa = driver.findElements(By.id(paymentnow)); //findElement 명령어가 못찾으면 익셉션이 안나서 리스트로 만들어 while 조건문 완성
+		
+		int optionnum = 0;
+		
+		while (aa.size() == 0) {
+			
+			List<MobileElement> option = driver.findElements(By.id("com.elevenst:id/text5"));
+			System.out.println("옵션개수: " + option.size());
+			option.get(optionnum).click();
+			
+			optionnum++;
+			
+			aa = driver.findElements(By.id(paymentnow));
+			
+			Thread.sleep(2000);
+			
+		}
+		
+		xPathClick(paymentnow);
+		
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test //주문서 화면
+	public void TC019 () throws InterruptedException {
+		
+		//주문서 화면 이동 확인
+		driver.findElement(By.xpath("//android.view.View[@text='주문결제SK pay']"));
+		
+		//일반결제 찾기
+		scrolling.setDriver(driver);
+		
+		MobileElement generalpay = null; //for문 밖에서도 Certdate 변수를 사용하기 위한 초기화
+		TouchAction action = new TouchAction(driver);
+		
+		//5번동안 element 찾아서 스크롤
+		for (int i=0; i<10; i++) {
+			try {
+				generalpay = driver.findElement(By.xpath("//android.widget.RadioButton[@text='일반결제']"));
+				
+				break;
+				
+			//generalpay 못찾으면 스크롤하고 5번 돌려도 못찾으면 인증서 만료일 못찾고 exception 엔딩	
+			} catch (NoSuchElementException e) {
+
+				action.press(PointOption.point(115, 2960/2))
+					.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
+	                .moveTo(PointOption.point(115, 2960/5))
+	                .release().perform();
+				
+				//scrolling.scrollDown();
+				
+				if (i==9) {
+					throw new NoSuchElementException("일반결제수단 못찾음");
+				}
+			}
+		}
+		
+		Point location = generalpay.getLocation();
+		//System.out.println(generalpay.getLocation()); //좌표값 확인
+		
+		int locationX = generalpay.getLocation().getX();
+		int locationY = generalpay.getLocation().getY();
+		System.out.println(locationX); //좌표값 확인
+		System.out.println(locationY); //좌표값 확인
+		action.tap(PointOption.point(locationX+100, locationY+30)).perform(); //실행해봐야 함 press로 누를 시 안드로이드 메뉴 뜸 (복사...)
+		//generalpay.click();		
+		
+		Thread.sleep(2000);
+		
+		
 		
 	}
 	

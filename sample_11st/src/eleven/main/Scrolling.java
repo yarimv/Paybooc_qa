@@ -39,10 +39,14 @@ public class Scrolling {
 		int scrollEnd = scrollHeightEnd.intValue();
 		
 		new TouchAction((PerformsTouchActions) getDriver())
+//		TouchAction action = new TouchAction(driver);
 		.press(PointOption.point(0, scrollStart))
 		.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
 		.moveTo(PointOption.point(0, scrollEnd))
 		.release().perform();
+		
+		System.out.println((PerformsTouchActions) getDriver());
+		System.out.println(driver);
 		
 	}
 
