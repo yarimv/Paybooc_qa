@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import io.appium.java_client.MobileElement;
@@ -26,9 +27,9 @@ public class scenario001 {
 	public static AndroidDriver<MobileElement> driver;
 
 	// 시간 출력
-	public static SimpleDateFormat format2 = new SimpleDateFormat("MM/dd HH:mm:ss");
+	public static SimpleDateFormat timeformat = new SimpleDateFormat("MM/dd HH:mm:ss");
 	public static Date time = new Date();
-	public static String time2 = format2.format(time);
+	public static String time2 = timeformat.format(time);
 
 	public static ArrayList<userInfo> list = new ArrayList<userInfo>(); // userInfo 값을 리스트로 사용하기위해 선언
 	public static Scrolling scrolling = new Scrolling();
@@ -60,10 +61,25 @@ public class scenario001 {
 
 	}
 
-	/*
-	 * @AfterTest public void closeApp () throws InterruptedException {
-	 * driver.closeApp (); }
-	 */
+	 @AfterTest //모든 app 닫고 appium edn session
+	 public void closeApp () throws InterruptedException {
+	 
+		((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.APP_SWITCH));
+		Thread.sleep(2000);
+
+		String clearapp8 = "com.android.systemui:id/recents_close_all_button"; //안드8
+		xPathClick(clearapp8);
+		
+		String clearapp9 = "com.sec.android.app.launcher:id/clear_all_button"; //안드9
+		xPathClick(clearapp9);
+		
+		String endTime = timeformat.format(time);
+		System.out.println("테스트 종료: " + endTime);
+		
+		driver.quit();
+	 
+	 }
+	
 	public void findElement(String elementID) throws InterruptedException {
 
 		String[] array = elementID.split("/"); // elementID 주소를 / 기준으로 잘라서 출력
@@ -97,7 +113,8 @@ public class scenario001 {
 
 	@Test // 테스트 시작 시간 log
 	public void TC000() {
-		System.out.println("테스트 시나리오1 시작: " + time2);
+		String startTime = timeformat.format(time);
+		System.out.println("테스트 시작: " + startTime);
 	}
 
 	@Test // 기기에 켜져있는 모든 APP 닫기

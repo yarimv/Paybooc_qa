@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -61,10 +63,7 @@ public class shop_elevenst {
 
 	}
 
-	/*
-	 * @AfterTest public void closeApp () throws InterruptedException {
-	 * driver.closeApp (); }
-	 */
+
 	
 	//resource-id 찾기
 	public void findElement(String elementID) throws InterruptedException {
@@ -215,7 +214,7 @@ public class shop_elevenst {
 			//List<MobileElement> product = driver.findElements(By.xpath("//android.view.ViewGroup/android.view.ViewGroup[2]")); //상품 타이틀 xpath
 			//List<MobileElement> product = driver.findElements(By.id("com.elevenst:id/recentViewImages")); //catch throw 확인용
 			List<MobileElement> product = driver.findElements(By.id("com.elevenst:id/title_container")); //상품 타이틀 resource-id
-			System.out.println(product.size());
+			System.out.println("검색결과 리스트 상품개수 :" + product.size());
 			product.get(0).click();
 			
 		} catch (Exception e) {
@@ -264,34 +263,40 @@ public class shop_elevenst {
 		
 	}
 	
-	@Test //주문서 화면
+	@Test //주문서 화면 결제수단 선택 후 결제 요청
 	public void TC019 () throws InterruptedException {
 		
 		//주문서 화면 이동 확인
 		driver.findElement(By.xpath("//android.view.View[@text='주문결제SK pay']"));
 		
 		//일반결제 찾기
-		scrolling.setDriver(driver);
-		
 		MobileElement generalpay = null; //for문 밖에서도 Certdate 변수를 사용하기 위한 초기화
 		TouchAction action = new TouchAction(driver);
 		
-		//5번동안 element 찾아서 스크롤
+		//System.out.println(driver.manage().window().getSize());
+		Dimension dimension = driver.manage().window().getSize();
+		
+		Double scrollingHS = dimension.getHeight()*0.7;
+		int scrollStart = scrollingHS.intValue();
+		
+		Double scrollingHE = dimension.getHeight()*0.2;
+		int scrollEnd = scrollingHE.intValue();
+		
+		//일반결제 찾아서 스크롤
 		for (int i=0; i<10; i++) {
 			try {
-				generalpay = driver.findElement(By.xpath("//android.widget.RadioButton[@text='일반결제']"));
 				
+				generalpay = driver.findElement(By.xpath("//android.widget.RadioButton[@text='일반결제']"));
+
 				break;
 				
 			//generalpay 못찾으면 스크롤하고 5번 돌려도 못찾으면 인증서 만료일 못찾고 exception 엔딩	
 			} catch (NoSuchElementException e) {
 
-				action.press(PointOption.point(115, 2960/2))
+				action.press(PointOption.point(115, scrollStart))
 					.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
-	                .moveTo(PointOption.point(115, 2960/5))
+	                .moveTo(PointOption.point(115, scrollEnd))
 	                .release().perform();
-				
-				//scrolling.scrollDown();
 				
 				if (i==9) {
 					throw new NoSuchElementException("일반결제수단 못찾음");
@@ -299,6 +304,7 @@ public class shop_elevenst {
 			}
 		}
 		
+		//일반결제 xpath 좌표 확인
 		Point location = generalpay.getLocation();
 		//System.out.println(generalpay.getLocation()); //좌표값 확인
 		
@@ -306,13 +312,186 @@ public class shop_elevenst {
 		int locationY = generalpay.getLocation().getY();
 		System.out.println(locationX); //좌표값 확인
 		System.out.println(locationY); //좌표값 확인
+		
+		//일반결제 클릭 부분이 location에서는 작동 안되므로 클릭 좌표 조정
 		action.tap(PointOption.point(locationX+100, locationY+30)).perform(); //실행해봐야 함 press로 누를 시 안드로이드 메뉴 뜸 (복사...)
-		//generalpay.click();		
 		
 		Thread.sleep(2000);
 		
+		//신용카드 찾아서 스크롤
+		MobileElement creditcard = null;
+		for (int i=0; i<5; i++) {
+			try {
+				creditcard = driver.findElement(By.xpath("//android.widget.Button[@resource-id='payCard']"));
+				
+				break;
+				
+			} catch (NoSuchElementException e) {
+				
+				action.press(PointOption.point(0, scrollStart))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
+                .moveTo(PointOption.point(0, scrollEnd))
+                .release().perform();
+			
+				if (i==4) {
+					throw new NoSuchElementException("신용카드 못찾음");
+				}
+			}
+		}
 		
+		creditcard.click();
+		
+		Thread.sleep(1000);
+		
+		//BC카드 찾아서 스크롤 후 클릭
+		MobileElement creditBCcard = null;
+		for (int i=0; i<5; i++) {
+			try {
+				creditBCcard = driver.findElement(By.xpath("//android.widget.RadioButton[@resource-id='cardKind27']"));
+				
+				break;
+				
+			} catch (NoSuchElementException e) {
+				
+				action.press(PointOption.point(0, scrollStart))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
+                .moveTo(PointOption.point(0, scrollEnd))
+                .release().perform();
+			
+				if (i==4) {
+					throw new NoSuchElementException("BC카드 못찾음");
+				}
+			}
+		}
+		
+		creditBCcard.click();
+		Thread.sleep(1000);
+		
+		//결제버튼 선택
+		driver.findElement(By.xpath("//android.widget.Button[@resource-id='doPaySubmit']")).click();
+		Thread.sleep(5000);
 		
 	}
+	
+	@Test //페이북PG 결제하기 버튼 선택
+	public void TC020 () throws InterruptedException {
+		
+		//페이북 PG 화면 전환 확인
+		driver.findElement(By.xpath("//android.view.View[@text='페이북']"));
+
+		try {
+			driver.findElement(By.xpath("//android.view.View[@text='결제하기']")).click();
+			
+		} catch (NoSuchElementException e) {
+			throw new NoSuchElementException("페이북 통합PG 결제하기 버튼 못찾음");
+			
+		}
+		
+		Thread.sleep(5000);
+
+	}
+	
+	@Test //페이북 app 호출 및 등록카드 노출 확인
+	public void TC021 () throws InterruptedException {
+		
+		//페이북 호출 확인
+		String paypblogo = "kvp.jjy.MispAndroid320:id/iv_title_logo";
+		findElement(paypblogo);
+		
+		//1.카드 번호 갖고 오기 2. 카드 번호 뒷 4자리만 변수에 입력
+		//현재 디바이스에 맞는 카드 번호 가져오기
+		int ApplyIndex = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if ("GS8".equals(list.get(i).getCardnum())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		
+		//카드 번호 뒷 4자리 자르기
+		String endCardnum = UserInfo.getCardnum().substring(UserInfo.getCardnum().length()-4, UserInfo.getCardnum().length());
+		//System.out.println(endCardnum); //확인용
+		
+		//페이북 화면에서 카드번호 끝 4자리 일치 확인
+		try {
+			
+			driver.findElement(By.xpath("//android.widget.TextView[@text='" + endCardnum + "']"));
+			//driver.findElement(By.xpath("//android.widget.TextView[@text='1111']")); //카드등록 실패 확인용
+			System.out.println("등록카드 확인");
+			
+		} catch (NoSuchElementException e) {
+			throw new NoSuchElementException("등록카드 미노출");
+		}
+		
+		Thread.sleep(3000);
+		
+	}
+	
+	@Test //결제비밀번호 입력
+	public void TC022 () throws InterruptedException {
+		
+		//연결된 디바이스에 맞는 결제비밀번호 불러오기
+		int ApplyIndex = 0;
+		for (int i=0; i<list.size(); i++) {
+			if ("GS8".equals(list.get(i).getDevice())) {
+				ApplyIndex = i;
+			}
+		}
+		userInfo UserInfo = list.get(ApplyIndex);
+		System.out.println("결제비밀번호: " + UserInfo.getPbpw());
+		
+		//SafeKeyboard 모듈에 결제비밀번호 넘겨주고 보안키패드 클릭 실행
+		SafeKeyboard pbpw = new SafeKeyboard();
+		pbpw.pbpwClick(UserInfo.getPbpw(),driver);
+		
+		Thread.sleep(10000);
+		
+	}
+	
+	@Test //결제 요청 완료 팝업창 닫기
+	public void TC023 () throws InterruptedException {
+		
+		//결제 요청 완료 팝업 확인
+		String payConfirm = "kvp.jjy.MispAndroid320:id/tvMsg";
+		findElement(payConfirm);
+		
+		//결제 요청 완료 팝업 확인 버튼 클릭 
+		String payConfirmbutton = "kvp.jjy.MispAndroid320:id/btnRight";
+		xPathClick(payConfirmbutton);
+		
+		Thread.sleep(5000);
+		
+	}
+	
+	@Test //결제 결과 확인
+	public void TC024 () {
+		
+		//결제 결과 화면 전환 확인
+		driver.findElement(By.xpath("//android.view.View[@text='주문결제SK pay']"));
+		
+		//결제 실패 사유 출력
+		MobileElement text = driver.findElement(By.xpath("//android.view.View/android.view.View[2]/android.widget.ListView/android.view.View/android.view.View[2]"));
+		System.out.println(text.getText());
+		
+	}
+	
+	 @Test //실행된 모든 app 종료
+	 public void closeApp () throws InterruptedException {
+
+		((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.APP_SWITCH));
+		Thread.sleep(2000);
+
+		String clearapp8 = "com.android.systemui:id/recents_close_all_button"; //안드8
+		xPathClick(clearapp8);
+		
+		String clearapp9 = "com.sec.android.app.launcher:id/clear_all_button"; //안드9
+		xPathClick(clearapp9);
+		
+		System.out.println("11번가 결제 테스트 종료");
+		
+		Thread.sleep(5000);
+	 
+	 }
+	
 	
 }
