@@ -22,52 +22,52 @@ public class SafeKeyboard {
 			case "0":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "1":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "2":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "3":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "4":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "5":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "6":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "7":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "8":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "9":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
 				System.out.println("카드번호" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 				
 			default: //위 케이스에 없는 상황이면 디폴트로 넘어옴
@@ -95,52 +95,52 @@ public class SafeKeyboard {
 			case "0":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "1":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "2":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "3":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "4":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "5":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "6":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "7":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "8":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "9":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
 				System.out.println("카드정보" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			
 				
@@ -168,52 +168,52 @@ public class SafeKeyboard {
 			case "0":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "1":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "2":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "3":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "4":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "5":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "6":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "7":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "8":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			case "9":
 				driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
 				System.out.println("카드비번" + tmp + "입력");
-				Thread.sleep(1000);
+				Thread.sleep(300);
 				break;
 			
 				
@@ -241,42 +241,42 @@ public class SafeKeyboard {
 				case "d":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='d 이응']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "e":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='e 디귿']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "f":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='f 리을']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "h":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='h 오']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "i":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='i 야']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "k":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='k 아']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "m":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='m 으']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "s":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='s 니은']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "E":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='대문자 키보드 변경']")).click();
@@ -285,12 +285,12 @@ public class SafeKeyboard {
 					Thread.sleep(500);
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='소문자 키보드 변경']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "1":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				
 				case "!":
@@ -300,7 +300,7 @@ public class SafeKeyboard {
 					Thread.sleep(500);
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='영문자변경']")).click();
 					System.out.println("공증비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;	
 					
 				default: //위 케이스에 없는 상황이면 디폴트로 넘어옴
@@ -327,52 +327,52 @@ public class SafeKeyboard {
 				case "0":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='0']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "1":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='1']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "2":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='2']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "3":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='3']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "4":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='4']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "5":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='5']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "6":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='6']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "7":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='7']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "8":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='8']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				case "9":
 					driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='9']")).click();
 					System.out.println("결제비번" + tmp + "입력");
-					Thread.sleep(1000);
+					Thread.sleep(300);
 					break;
 				
 					
